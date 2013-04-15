@@ -31,8 +31,8 @@ public class TestForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fullscreen = !fullscreen;
-                XAtom.get("_NET_WM_WINDOW_TYPE").setAtomListProperty((XBaseWindow)TestForm.this.getPeer(), new XAtom[]{XAtom.get("_NET_WM_WINDOW_TYPE_FULLSCREEN")});
-//                XAtom.get("_NET_WM_WINDOW_TYPE").DeleteProperty((XBaseWindow)TestForm.this.getPeer());
+//                XAtom.get("_NET_WM_WINDOW_TYPE").setAtomListProperty((XBaseWindow)TestForm.this.getPeer(), new XAtom[]{XAtom.get("_NET_WM_WINDOW_TYPE_FULLSCREEN")});
+                XAtom.get("_NET_WM_WINDOW_TYPE").DeleteProperty((XBaseWindow)TestForm.this.getPeer());
                 XToolkit.awtLock();
                 try {
                     X11FullscreenHelper.setFullScreenWindow(TestForm.this, fullscreen);
