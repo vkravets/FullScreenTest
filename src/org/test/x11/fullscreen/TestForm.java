@@ -1,9 +1,15 @@
 package org.test.x11.fullscreen;
 
+import com.sun.jna.platform.unix.X11;
+import sun.awt.X11.XAtom;
+import sun.awt.X11.XBaseWindow;
+import sun.awt.X11.XToolkit;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.awt.peer.ContainerPeer;
+import java.awt.peer.WindowPeer;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,13 +31,20 @@ public class TestForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 fullscreen = !fullscreen;
-                X11FullscreenHelper.setFullScreenWindow(TestForm.this, fullscreen);
-            }
+                XAtom.get("_NET_WM_WINDOW_TYPE").setAtomListProperty((XBaseWindow)TestForm.this.getPeer(), new XAtom[]{XAtom.get("_NET_WM_WINDOW_TYPE_FULLSCREEN")});
+//                XAtom.get("_NET_WM_WINDOW_TYPE").DeleteProperty((XBaseWindow)TestForm.this.getPeer());
+                XToolkit.awtLock();
+                try {
+                    X11FullscreenHelper.setFullScreenWindow(TestForm.this, fullscreen);
+                } finally {
+                    XToolkit.awtUnlock();
+                }
+           }
         });
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ChildDialog dialog = new ChildDialog();
+                ChildDialog dialog = new ChildDialog(TestForm.this);
                 dialog.pack();
                 dialog.setModal(true);
                 dialog.setVisible(true);

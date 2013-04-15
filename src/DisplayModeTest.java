@@ -47,6 +47,8 @@
  * type of graphics card.
  */
 
+import org.test.x11.fullscreen.ChildDialog;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -158,7 +160,11 @@ public class DisplayModeTest extends JFrame implements ActionListener,
         Object source = ev.getSource();
         if (source == exit) {
             device.setDisplayMode(originalDM);
-            System.exit(0);
+            ChildDialog dlg = new ChildDialog(this);
+            dlg.setModal(true);
+            dlg.pack();
+            dlg.setVisible(true);
+//            System.exit(0);
         } else { // if (source == changeDM)
             int index = dmList.getSelectionModel().getAnchorSelectionIndex();
             if (index >= 0) {

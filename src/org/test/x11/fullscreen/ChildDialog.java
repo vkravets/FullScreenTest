@@ -9,7 +9,17 @@ public class ChildDialog extends JDialog {
     private JButton buttonOK;
     private JButton buttonCancel;
 
+    public ChildDialog(Frame owner) {
+        super(owner);
+        initComponents();
+    }
+
     public ChildDialog() {
+        super();
+        initComponents();
+    }
+
+    private void initComponents() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
