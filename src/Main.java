@@ -1,4 +1,4 @@
-package org.test.x11.fullscreen;
+import org.test.x11.fullscreen.TestForm;
 
 import javax.swing.*;
 
